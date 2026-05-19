@@ -1,0 +1,39 @@
+
+
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.filter__btn {
+  font-size: 1rem;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  border:none;
+  outline: none;
+  &:hover:not(:disabled) {
+    background: green;
+  }
+}
+
+.filter__btn.active {
+  background: green;
+}
+
+.jobs-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+
+}
+
+.jobs-list__card {
+    border: 1px solid grey;
+  padding: 1rem;
+  border-radius: 1rem;
+}
