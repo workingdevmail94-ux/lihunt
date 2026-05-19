@@ -1,0 +1,31 @@
+.btn {
+    padding: 7px 20px;
+  border: 1px solid #d9dce5;
+  border-radius: 20px;
+  background: #ffffff;
+  color: #374151;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+
+  &:hover {
+    border-color: #6c4dff;
+    color: #6c4dff;
+  }
+
+  &.active {
+    background: #6c4dff;
+    border-color: #6c4dff;
+    color: #ffffff;
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  &--load-more {
+    margin: 0 0 2rem;
+  }
+}

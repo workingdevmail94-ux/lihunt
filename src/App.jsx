@@ -1,17 +1,33 @@
 import { useEffect, useState } from 'react'
-import './App.css'
+import {
+  Bookmark,
+  BookmarkCheck,
+  MapPin,
+  BriefcaseBusiness,
+  DollarSign,
+  Building2,
+  CalendarDays,
+  RotateCcw,
+  ArrowUpAZ,
+  ArrowDownAZ,
+  ExternalLink
+} from "lucide-react";
+import './App.scss'
+import "./styles/main.scss";
+import LogoTitle from './components/LogoTitle.jsx';
 import JobList from './components/JobList.jsx'
 import SearchBar from './components/SearchBar.jsx'
 import searchBar from './components/SearchBar.jsx'
 import Filters from './components/Filters.jsx'
 import EmptyState from './components/EmptyState.jsx'
 import SectionTitle from './components/SectionTitle.jsx'
+import LoadMoreButton from './components/LoadMoreButton.jsx'
 
 export default function App() {
   const [jobsList, setJobsList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorFetch, setErrorFetch] = useState(null);
-
+  const [visibleCount, setVisibleCount] = useState(6);
   useEffect(() => {
    setIsLoading(true)
    fetch('https://remotive.com/api/remote-jobs').then(response => {
@@ -80,6 +96,8 @@ export default function App() {
     }
   })
 
+  const visibleJobs = sortedJobs.slice(0, visibleCount);
+
   function toggleSaveJobs(id) {
       if (savedJobs.includes(id)) {
          setSavedJobs(savedJobs.filter((item) => item !== id))
@@ -91,12 +109,8 @@ export default function App() {
   return (
     <>
       <main>
-        {isLoading ? "Загрузка..." : null}
-        {errorFetch ? "Ошибка загрузки" : null}
-        {!isLoading && !errorFetch && jobsList.length === 0 ? "Нет вакансий" : null}
         
-        <h1>LiHunt</h1>
-        <p>Каталог вакансий для фронтенд-разработчиков</p>
+        <LogoTitle/>
         <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
 
         <Filters 
@@ -105,13 +119,27 @@ export default function App() {
         sortOrder={sortOrder} setSortOrder={setSortOrder}
         savedJobs={savedJobs}
         filteredJobs={filteredJobs}
-        showSavedOnly={showSavedOnly} setShowSavedOnly={setShowSavedOnly}/>
-        {sortedJobs.length !== 0 ? <SectionTitle title={showSavedOnly ? "Найдено сохраненных вакансий" : "Найдено вакансий"} count={sortedJobs.length}/> : null}
+        showSavedOnly={showSavedOnly} setShowSavedOnly={setShowSavedOnly} 
+        visibleCount={visibleCount} setVisibleCount={setVisibleCount}/>
         
-       
-        {searchValue !== "" && filteredJobs.length === 0 || sortedJobs.length === 0
-          ? <EmptyState text={savedJobs.length === 0 && showSavedOnly ? "Нет сохраненных вакансий" : "Ничего не найдено"}/>
-          : <JobList jobsList={sortedJobs} savedJobs={savedJobs} setSavedJobs={setSavedJobs} toggleSaveJobs={toggleSaveJobs}/>}
+        {isLoading ? (
+          "Загрузка..."
+        ) : errorFetch ? (
+          "Ошибка загрузки"
+        ) : jobsList.length === 0 ? (
+          "Нет вакансий"
+        ) : sortedJobs.length === 0 ? (
+           <EmptyState text={savedJobs.length === 0 && showSavedOnly ? "Нет сохраненных вакансий" : "Ничего не найдено"}/>
+        ) : (
+          <>
+            <SectionTitle title={showSavedOnly ? "Найдено сохраненных вакансий" : "Найдено вакансий"} count={sortedJobs.length}/>
+            <JobList visibleJobs={visibleJobs} savedJobs={savedJobs} setSavedJobs={setSavedJobs} toggleSaveJobs={toggleSaveJobs}/>
+            {sortedJobs.length > visibleCount ?  (
+              <LoadMoreButton visibleCount={visibleCount} setVisibleCount={setVisibleCount} sortedJobs={sortedJobs}/>) 
+              : null}
+          </>
+          )
+        }   
       </main>
     </>
   )

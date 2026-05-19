@@ -2,8 +2,8 @@ import JobCard from "./JobCard"
 
 export default function JobList (props) {
    return <ul className="jobs-list">
-        {props.jobsList.map((item) => {
-            const isSaved = props.savedJobs.includes(item.id);showSavedOnly
+        {props.visibleJobs.map((item) => {
+            const isSaved = props.savedJobs.includes(item.id);
             return <JobCard key={item.id} job={item} isSaved={isSaved} onToggleSave={props.toggleSaveJobs} />
         })}
     </ul>
