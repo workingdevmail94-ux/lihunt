@@ -8,5 +8,5 @@ export default function LoadMoreButton(props) {
         }
         
     }
-    return <button className={"btn btn--load-more"} onClick={handleLoadMore}>Показать еще (Осталось: {props.sortedJobs.length - props.visibleCount})</button>
+    return <button className={"btn btn--load-more"} onClick={handleLoadMore}>Show more jobs ({props.sortedJobs.length - props.visibleCount} remaining)</button>
 }
