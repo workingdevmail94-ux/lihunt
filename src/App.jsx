@@ -14,7 +14,8 @@ import {
 } from "lucide-react";
 import './App.scss'
 import "./styles/main.scss";
-import LogoTitle from './components/LogoTitle.jsx';
+import Header from './components/Header.jsx';
+import Footer from './components/Footer.jsx';
 import JobList from './components/JobList.jsx'
 import SearchBar from './components/SearchBar.jsx'
 import searchBar from './components/SearchBar.jsx'
@@ -30,21 +31,30 @@ export default function App() {
   const [visibleCount, setVisibleCount] = useState(6);
   useEffect(() => {
    setIsLoading(true)
-   fetch('https://remotive.com/api/remote-jobs').then(response => {
+
+  const fetchPromise = fetch('https://remotive.com/api/remote-jobs').then(response => {
       if (!response.ok) {
-        throw new Error('Сетевая ошибка');
+        throw new Error('Network error');
       }
     return response.json();
   }).then(data => {
-    console.log(data.jobs[0])
     setJobsList(data.jobs);
-  }).catch(error => {
+  })
+
+  const delayPromise = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, 2000);
+  });
+
+  Promise.all([fetchPromise, delayPromise]).catch(error => {
     setErrorFetch(error);
-  }).finally(() => {
-      setIsLoading(false)
+  })
+  .finally(() => {
+      setIsLoading(false) 
   })
   }, [])
-
+  
   const [searchValue, setSearchValue] = useState("");
   const [debouncedSearchValue, setDebouncedSearchValue] = useState("");
   useEffect(() => {
@@ -61,7 +71,7 @@ export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     const saved = localStorage.getItem("savedJobs");
-    console.log(saved)
+
     if (saved) {
       setSavedJobs(JSON.parse(saved))
     }
@@ -106,14 +116,15 @@ export default function App() {
          setSavedJobs([...savedJobs, id])
       }
   }
+
   return (
     <>
+      <Header/>
       <main>
-        
-        <LogoTitle/>
-        <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
+        <SearchBar errorFetch={errorFetch} searchValue={searchValue} setSearchValue={setSearchValue}/>
 
         <Filters 
+        errorFetch={errorFetch}
         workType={workType} setWorkType={setWorkType}  
         setSearchValue={setSearchValue} 
         sortOrder={sortOrder} setSortOrder={setSortOrder}
@@ -123,17 +134,20 @@ export default function App() {
         visibleCount={visibleCount} setVisibleCount={setVisibleCount}/>
         
         {isLoading ? (
-          "Загрузка..."
+          <div className="loading">
+            <RotateCcw className='loading__icon'/> Loading
+          </div>
         ) : errorFetch ? (
-          "Ошибка загрузки"
+          "Loading error"
         ) : jobsList.length === 0 ? (
-          "Нет вакансий"
+          "No jobs found"
         ) : sortedJobs.length === 0 ? (
-           <EmptyState text={savedJobs.length === 0 && showSavedOnly ? "Нет сохраненных вакансий" : "Ничего не найдено"}/>
+           <EmptyState text={savedJobs.length === 0 && showSavedOnly ? "No saved jobs" : "Nothing found"}/>
         ) : (
           <>
-            <SectionTitle title={showSavedOnly ? "Найдено сохраненных вакансий" : "Найдено вакансий"} count={sortedJobs.length}/>
-            <JobList visibleJobs={visibleJobs} savedJobs={savedJobs} setSavedJobs={setSavedJobs} toggleSaveJobs={toggleSaveJobs}/>
+           
+            <SectionTitle title={showSavedOnly ? "Found saved jobs" : "Found jobs"} count={sortedJobs.length}/>
+            <JobList visibleJobs={visibleJobs} savedJobs={savedJobs} setSavedJobs={setSavedJobs} toggleSaveJobs={toggleSaveJobs} searchValue={searchValue}/>
             {sortedJobs.length > visibleCount ?  (
               <LoadMoreButton visibleCount={visibleCount} setVisibleCount={setVisibleCount} sortedJobs={sortedJobs}/>) 
               : null}
@@ -141,6 +155,7 @@ export default function App() {
           )
         }   
       </main>
+      <Footer />
     </>
   )
 }

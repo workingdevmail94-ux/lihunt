@@ -9,6 +9,14 @@ body {
   font-family: "Manrope", Arial, sans-serif;
   font-size: 1.6rem;
   color: #111827;
+   background:
+    radial-gradient(circle at top center, rgba(126, 87, 255, 0.12), transparent 35%),
+    linear-gradient(
+      180deg,
+      #f7f5ff 0%,
+      #f5f6fb 35%,
+      #f3f5fb 100%
+    );
 }
 
 #root {
@@ -29,23 +37,23 @@ h2 {
 }
 
 h1 {
-  font-size: 56px;
+  font-size: 5.6rem;
   letter-spacing: -1.68px;
-  margin: 32px 0;
+  margin: 3rem 0;
   @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+    font-size: 3.6rem;
+    margin: 2rem 0;
   }
 }
 h2 {
-  font-size: 22px;
-  line-height: 26px;
-  margin: 0 0 15px;
+  font-size: 2.2rem;
+  line-height: 2.6rem;
+  margin: 0 0 1.5rem;
 }
 
-.hero {
+.header {
   text-align: center;
-    margin-bottom: 2rem;
+    padding: 2rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -65,22 +73,49 @@ h2 {
   }
 }
 
-.search-input {
-  display: block;
-  width: 100%;
-  max-width: 520px;
-  margin: 0 auto 20px;
-  padding: 14px 18px;
-
-  border: 1px solid #d9dce5;
-  border-radius: 14px;
-  background: #ffffff;
-
-  font-size: 16px;
-  outline: none;
-
-  &:focus {
-    border-color: #6c4dff;
-    box-shadow: 0 0 0 4px rgba(108, 77, 255, 0.12);
+.footer {
+  padding: 2rem 0;
+  margin-top: auto;
+  &__logo {
+    max-width: 13rem;
+    margin: auto;
   }
+}
+
+
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  &__icon {
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.section-title {
+  margin: 1rem 0 3rem;
+  &__count {
+    color: var(--clr1);
+  }
+}
+
+.empty-state {
+  margin: 2rem 0;
+  &__text {
+    font-size: 2rem;
+    line-height: 2.4rem;
+  }
+}
+
+mark {
+  background: #fff3a3;
+  color: inherit;
 }
