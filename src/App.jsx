@@ -21,7 +21,7 @@ import SearchBar from './components/SearchBar.jsx'
 import searchBar from './components/SearchBar.jsx'
 import Filters from './components/Filters.jsx'
 import EmptyState from './components/EmptyState.jsx'
-import SectionTitle from './components/SectionTitle.jsx'
+import JobsHeader from './components/JobsHeader.jsx'
 import LoadMoreButton from './components/LoadMoreButton.jsx'
 
 export default function App() {
@@ -44,7 +44,7 @@ export default function App() {
   const delayPromise = new Promise((resolve) => {
     setTimeout(() => {
       resolve();
-    }, 2000);
+    }, 1000);
   });
 
   Promise.all([fetchPromise, delayPromise]).catch(error => {
@@ -88,6 +88,8 @@ export default function App() {
       setShowSavedOnly(false)
     }
   }, [savedJobs, showSavedOnly])
+
+  const [viewListMode, setViewListMode] = useState("grid");
 
 
   const filteredJobs = jobsList.filter((job) => {
@@ -146,8 +148,8 @@ export default function App() {
         ) : (
           <>
            
-            <SectionTitle title={showSavedOnly ? "Found saved jobs" : "Found jobs"} count={sortedJobs.length}/>
-            <JobList visibleJobs={visibleJobs} savedJobs={savedJobs} setSavedJobs={setSavedJobs} toggleSaveJobs={toggleSaveJobs} searchValue={searchValue}/>
+            <JobsHeader title={showSavedOnly ? "Found saved jobs" : "Found jobs"} count={sortedJobs.length} viewListMode={viewListMode} setViewListMode={setViewListMode}/>
+            <JobList visibleJobs={visibleJobs} savedJobs={savedJobs} setSavedJobs={setSavedJobs} toggleSaveJobs={toggleSaveJobs} searchValue={searchValue} viewListMode={viewListMode} setViewListMode={setViewListMode}/>
             {sortedJobs.length > visibleCount ?  (
               <LoadMoreButton visibleCount={visibleCount} setVisibleCount={setVisibleCount} sortedJobs={sortedJobs}/>) 
               : null}

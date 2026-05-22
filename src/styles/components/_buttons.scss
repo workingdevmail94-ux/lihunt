@@ -8,8 +8,14 @@
   cursor: pointer;
 
   transition: 0.2s ease;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+    border-color: var(--clr1);
+    color: var(--clr1);
+  }
+  }
 
-  &:hover {
+   &:active {
     border-color: var(--clr1);
     color: var(--clr1);
   }
@@ -27,5 +33,6 @@
 
   &--load-more {
     margin: 0 0 2rem;
+    font-size: 1.8rem;
   }
 }

@@ -8,7 +8,8 @@ import {
   Laptop,
   RotateCcw,
   ArrowDownUp,
-  Bookmark
+  Bookmark,
+  
 } from "lucide-react";
 export default function Filters(props) {
     function handleWorkTypeClick(type) {
@@ -38,7 +39,7 @@ export default function Filters(props) {
     onClick={() => handleWorkTypeClick("all")}
   >
     <Grid2X2 className="filter__icon" />
-    All
+    All jobs
   </button>
 
   <button

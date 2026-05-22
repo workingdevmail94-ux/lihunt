@@ -100,12 +100,6 @@ h2 {
   }
 }
 
-.section-title {
-  margin: 1rem 0 3rem;
-  &__count {
-    color: var(--clr1);
-  }
-}
 
 .empty-state {
   margin: 2rem 0;
@@ -118,4 +112,9 @@ h2 {
 mark {
   background: #fff3a3;
   color: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }

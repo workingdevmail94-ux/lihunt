@@ -2,7 +2,7 @@
 @use "./reset";
 @use "./fonts";
 @use "./base";
-@use "./components/search";
-@use "./components/job-card";
-@use "./components/filters";
 @use "./components/buttons";
+@use "./components/search";
+@use "./components/filters";
+@use "./components/jobs"; 
