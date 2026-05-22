@@ -10,6 +10,20 @@ import {
 
 
 export default function JobCard(props) {
+        
+        function formatJobType(type) {
+            if (!type) {
+                return "no info"
+            }
+            else if (type === "full_time") {
+                return "Full time"
+            }
+            else if (type === "part_time") {
+                return "Part time"
+            }
+            return type
+        }
+        
       function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
@@ -55,7 +69,7 @@ export default function JobCard(props) {
 
     <span className="job-card__info-text">
       <span className="job-card__info-label">Job type:</span>
-      <span className="job-card__info-value">{props.job.job_type || "no info"}</span>
+      <span className="job-card__info-value">{formatJobType(props.job.job_type)}</span>
     </span>
   </li>
 

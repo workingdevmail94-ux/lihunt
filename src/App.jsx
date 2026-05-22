@@ -5,7 +5,7 @@ import "./styles/main.scss";
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import JobList from './components/JobList.jsx'
-import SearchBar from './components/SearchBar.jsx'
+import SearchBar from './components/SearchBar.tsx'
 import Filters from './components/Filters.jsx'
 import EmptyState from './components/EmptyState.jsx'
 import JobsHeader from './components/JobsHeader.jsx'
