@@ -16,7 +16,6 @@ export default function JobCard(props) {
 
     function highlightText(text, search) {
       const query = search.trim();
-       console.log(query)
       if (!query) return text;
       const safeQuery = escapeRegExp(query);
       const regex = new RegExp(`(${safeQuery})`, "gi");

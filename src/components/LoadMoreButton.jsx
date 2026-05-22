@@ -1,12 +1,23 @@
+import { RotateCcw } from "lucide-react";
 export default function LoadMoreButton(props) {
     function handleLoadMore() {
+        props.setIsLoadMore(true)
         if (props.sortedJobs.length - props.visibleCount > 7) {
-            props.setVisibleCount(props.visibleCount + 6)
+            setTimeout(() => {
+                props.setVisibleCount(props.visibleCount + 6)
+                props.setIsLoadMore(false)
+            }, 1000);
+            
         }
         else {
-            props.setVisibleCount(props.sortedJobs.length)
+            setTimeout(() => {
+                props.setVisibleCount(props.sortedJobs.length)
+                props.setIsLoadMore(false)
+            }, 1000);
         }
         
     }
-    return <button className={"btn btn--load-more"} onClick={handleLoadMore}>Show more jobs ({props.sortedJobs.length - props.visibleCount} remaining)</button>
+    return <button disabled={props.isLoadMore} className={"btn btn--load-more"} onClick={handleLoadMore}>
+           {props.isLoadMore? <RotateCcw className="spin-animation"/> : null}
+        <span>Show more jobs ({props.sortedJobs.length - props.visibleCount} remaining)</span></button>
 }

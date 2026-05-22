@@ -89,10 +89,11 @@ h2 {
   align-items: center;
   gap: 1rem;
   justify-content: center;
-  &__icon {
+}
+
+.spin-animation {
     animation: spin 0.8s linear infinite;
   }
-}
 
 @keyframes spin {
   to {

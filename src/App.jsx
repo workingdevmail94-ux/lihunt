@@ -1,24 +1,11 @@
 import { useEffect, useState } from 'react'
-import {
-  Bookmark,
-  BookmarkCheck,
-  MapPin,
-  BriefcaseBusiness,
-  DollarSign,
-  Building2,
-  CalendarDays,
-  RotateCcw,
-  ArrowUpAZ,
-  ArrowDownAZ,
-  ExternalLink
-} from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import './App.scss'
 import "./styles/main.scss";
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import JobList from './components/JobList.jsx'
 import SearchBar from './components/SearchBar.jsx'
-import searchBar from './components/SearchBar.jsx'
 import Filters from './components/Filters.jsx'
 import EmptyState from './components/EmptyState.jsx'
 import JobsHeader from './components/JobsHeader.jsx'
@@ -90,7 +77,7 @@ export default function App() {
   }, [savedJobs, showSavedOnly])
 
   const [viewListMode, setViewListMode] = useState("grid");
-
+  const [isLoadMore, setIsLoadMore] = useState(false);
 
   const filteredJobs = jobsList.filter((job) => {
     const matchesSearch = job.title.toLowerCase().includes(debouncedSearchValue.toLowerCase()) || job.company_name.toLowerCase().includes(debouncedSearchValue.toLowerCase());
@@ -137,7 +124,7 @@ export default function App() {
         
         {isLoading ? (
           <div className="loading">
-            <RotateCcw className='loading__icon'/> Loading
+            <RotateCcw className='loading__icon spin-animation'/> Loading
           </div>
         ) : errorFetch ? (
           "Loading error"
@@ -151,7 +138,7 @@ export default function App() {
             <JobsHeader title={showSavedOnly ? "Found saved jobs" : "Found jobs"} count={sortedJobs.length} viewListMode={viewListMode} setViewListMode={setViewListMode}/>
             <JobList visibleJobs={visibleJobs} savedJobs={savedJobs} setSavedJobs={setSavedJobs} toggleSaveJobs={toggleSaveJobs} searchValue={searchValue} viewListMode={viewListMode} setViewListMode={setViewListMode}/>
             {sortedJobs.length > visibleCount ?  (
-              <LoadMoreButton visibleCount={visibleCount} setVisibleCount={setVisibleCount} sortedJobs={sortedJobs}/>) 
+              <LoadMoreButton visibleCount={visibleCount} setVisibleCount={setVisibleCount} sortedJobs={sortedJobs} isLoadMore={isLoadMore} setIsLoadMore={setIsLoadMore}/>) 
               : null}
           </>
           )
