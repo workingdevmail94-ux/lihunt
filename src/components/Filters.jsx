@@ -42,6 +42,14 @@ export default function Filters(props) {
     All jobs
   </button>
 
+       <button
+   disabled={props.errorFetch} className={"btn filter__btn" + (props.workType === "full_time" ? " active" : "")}
+    onClick={() => handleWorkTypeClick("full_time")}
+  >
+    <BriefcaseBusiness className="filter__icon" />
+    Full time
+  </button>
+
   <button
     disabled={props.errorFetch} className={"btn filter__btn" + (props.workType === "part_time" ? " active" : "")}
     onClick={() => handleWorkTypeClick("part_time")}
@@ -50,13 +58,7 @@ export default function Filters(props) {
     Part time
   </button>
 
-  <button
-   disabled={props.errorFetch} className={"btn filter__btn" + (props.workType === "full_time" ? " active" : "")}
-    onClick={() => handleWorkTypeClick("full_time")}
-  >
-    <BriefcaseBusiness className="filter__icon" />
-    Full time
-  </button>
+ 
 
   <button
     disabled={props.errorFetch} className={"btn filter__btn" + (props.workType === "freelance" ? " active" : "")}
@@ -66,8 +68,14 @@ export default function Filters(props) {
     Freelance
   </button>
 
-  <ResetButton errorFetch={props.errorFetch} onReset={handleReset} icon={<RotateCcw className="filter__icon" />} />
-
+    <ShowSavedOnlyButton
+    errorFetch={props.errorFetch}
+    onSavedOnly={showSavedOnly}
+    showSavedOnly={props.showSavedOnly}
+    setShowSavedOnly={props.setShowSavedOnly}
+    savedJobs={props.savedJobs}
+    icon={<Bookmark className="filter__icon" />}
+  />
   <SortButton
     errorFetch={props.errorFetch}
     onSort={handleSort}
@@ -76,14 +84,9 @@ export default function Filters(props) {
     icon={<ArrowDownUp className="filter__icon" />}
   />
 
-  <ShowSavedOnlyButton
-    errorFetch={props.errorFetch}
-    onSavedOnly={showSavedOnly}
-    showSavedOnly={props.showSavedOnly}
-    setShowSavedOnly={props.setShowSavedOnly}
-    savedJobs={props.savedJobs}
-    icon={<Bookmark className="filter__icon" />}
-  />
+
+  <ResetButton errorFetch={props.errorFetch} onReset={handleReset} icon={<RotateCcw className="filter__icon" />} />
+
 </div>
         </>
     )
