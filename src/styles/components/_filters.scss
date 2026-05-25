@@ -4,6 +4,12 @@
   flex-wrap: wrap;
   gap: 1rem;
   padding: 2rem 0;
+  &__additional-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-left: auto;
+  }
 }
 
 .filter__btn {

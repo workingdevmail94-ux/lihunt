@@ -76,7 +76,7 @@ export default function Filters(props) {
     <FileSignature className="filter__icon" />
     Contract
   </button>
-
+      
     <ShowSavedOnlyButton
     errorFetch={props.errorFetch}
     onSavedOnly={showSavedOnly}
@@ -85,17 +85,21 @@ export default function Filters(props) {
     savedJobs={props.savedJobs}
     icon={<Bookmark className="filter__icon" />}
   />
-  <SortButton
+  {/* <div className="filter__additional-buttons"> */}
+          <SortButton
     errorFetch={props.errorFetch}
     onSort={handleSort}
     sortOrder={props.sortOrder}
     filteredJobs={props.filteredJobs}
     icon={<ArrowDownUp className="filter__icon" />}
   />
+   <ResetButton errorFetch={props.errorFetch} onReset={handleReset} icon={<RotateCcw className="filter__icon" />} />
+
+      {/* </div> */}
 
 
-  <ResetButton errorFetch={props.errorFetch} onReset={handleReset} icon={<RotateCcw className="filter__icon" />} />
 
+ 
 </div>
         </>
     )

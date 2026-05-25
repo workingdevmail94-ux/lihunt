@@ -123,7 +123,7 @@ return (
 
     <main>
       {isLoading ? (
-        <div className="loading">
+        <div className="loading loading--main">
           <RotateCcw className="loading__icon spin-animation" /> Loading
         </div>
       ) : errorFetch ? (
@@ -163,7 +163,7 @@ return (
           />
 
           <EmptyState
-            text={savedJobs.length === 0 && showSavedOnly ? "No saved jobs" : "Nothing found"}
+            text={savedJobs.length === 0? "Nothing found" : "Found jobs"}
           />
         </>
       ) : (
@@ -208,6 +208,7 @@ return (
             searchValue={searchValue}
             viewListMode={viewListMode}
             setViewListMode={setViewListMode}
+            selectedJob={selectedJob}
             setSelectedJob={setSelectedJob}
           />
 

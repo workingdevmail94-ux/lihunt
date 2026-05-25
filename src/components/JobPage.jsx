@@ -9,6 +9,14 @@ import {
 } from "lucide-react";
 
 export default function JobPage(props) {
+
+      const cleanDescription = props.selectedJob.description
+        ?.replace(/\sstyle="[^"]*"/gi, "")
+        ?.replace(/\sclass="[^"]*"/gi, "")
+        ?.replace(/<p[^>]*>\s*(<strong[^>]*>)?\s*(&nbsp;|\s|<br\s*\/?>)*\s*(<\/strong>)?\s*<\/p>/gi, "")
+        ?.replace(/<img[^>]*>/gi, "");
+
+        
     function formatJobType(type) {
             if (!type) {
                 return "no info"
@@ -32,17 +40,11 @@ export default function JobPage(props) {
      
        
         <article className="job-card job-page">
-           <button className="job-card__action-btn" onClick={() => props.setSelectedJob(null)}><X /></button>
-                     {/* <button
-                    className={"job-card__save-btn" + (props.isSaved ? " job-card__save-btn--active" : "")}
-                    onClick={() => props.onToggleSave(props.selectedJob.id)}
-                    >
-                    {props.isSaved ? <BookmarkCheck className="job-card__icon"/> : <Bookmark className="job-card__icon"/>}
-                    
-                    </button> */}
-
-
-                    <h3 className="job-card__title">{props.selectedJob.title || "no title"}</h3>
+           <div className="job-card__top">
+             <h3 className="job-card__title">{props.selectedJob.title || "no title"}</h3>
+            <button className="job-card__action-btn" onClick={() => props.setSelectedJob(null)}><X /></button>
+           </div>
+            
 
                     <ul className="job-card__info-list">
   <li className="job-card__info-item">
@@ -81,6 +83,22 @@ export default function JobPage(props) {
   </li>
 </ul>
 
+<div className="job-card__description"
+dangerouslySetInnerHTML={
+  { __html: cleanDescription || "<p> No description </p>" }
+  }>
+  
+</div>
+                    {Array.isArray(props.selectedJob.tags) && props.selectedJob.tags.length > 0 ? (
+                      <ul className="job-card__tags-list">
+                        {props.selectedJob.tags.map((item, index) => (
+                          <li key={index} className="job-card__tags-item">
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+
                 
                 <div className="job-card__bottom">
                     <div className="job-card__company">
@@ -98,7 +116,7 @@ export default function JobPage(props) {
                 </div>
            
                 
-                {/* <p>Job tags: {Array.isArray(props.selectedJob.tags) && props.selectedJob.tags.length > 0 ? props.selectedJob.tags.join(", ") : "no info"}</p> */}
+              
             </article>
     )
 }

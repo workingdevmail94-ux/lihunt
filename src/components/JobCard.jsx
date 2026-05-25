@@ -10,7 +10,15 @@ import {
 
 
 export default function JobCard(props) {
+        function handleSelectJob() {
+          props.setSelectedJob(props.job)
+          
+            window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
         
+        }
         function formatJobType(type) {
             if (!type) {
                 return "no info"
@@ -50,16 +58,20 @@ export default function JobCard(props) {
             return date.toLocaleDateString("ru-RU");
     }
     return <li className="job-card">
-                     <button
+      <div className="job-card__top">
+               <h3 className="job-card__title" >{highlightText(props.job.title || "no title", props.searchValue)}</h3>
+<button
                     className={"job-card__action-btn" + (props.isSaved ? " job-card__save-btn--active" : "")}
                     onClick={() => props.onToggleSave(props.job.id)}
                     >
                     {props.isSaved ? <BookmarkCheck className="job-card__icon"/> : <Bookmark className="job-card__icon"/>}
                     
                     </button>
+      </div>
+                     
 
 
-                    <h3 className="job-card__title" >{highlightText(props.job.title || "no title", props.searchValue)}</h3>
+             
 
                     <ul className="job-card__info-list">
   <li className="job-card__info-item">
@@ -113,7 +125,7 @@ export default function JobCard(props) {
                         <CalendarDays className="job-card__icon"/> {getFormattedDate()}
                     </div>
                 </div>
-                <button className="btn btn--revert job-card__view-details-btn" onClick={() => props.setSelectedJob(props.job)}>View details</button>
+                <button className="btn btn--revert job-card__view-details-btn" onClick={handleSelectJob}>View details</button>
                 
                 {/* <p>Job tags: {Array.isArray(props.job.tags) && props.job.tags.length > 0 ? props.job.tags.join(", ") : "no info"}</p> */}
             </li>
