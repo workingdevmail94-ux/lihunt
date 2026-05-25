@@ -15,7 +15,7 @@ import {
 export default function Filters(props) {
     function handleWorkTypeClick(type) {
         props.setWorkType(type)
-        // props.setShowSavedOnly(false)
+        props.setShowSavedOnly(false)
         props.setVisibleCount(6)
     }
     function handleReset() {

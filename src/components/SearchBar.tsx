@@ -11,6 +11,7 @@ export default function SearchBar(props: SearchBarProps) {
       <input
         className="search__input"
         type="text"
+        aria-label="Search jobs"
         disabled={Boolean(props.errorFetch)}
         value={props.searchValue}
         onChange={(event) => props.setSearchValue(event.target.value)}
