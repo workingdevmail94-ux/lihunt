@@ -14,9 +14,10 @@ export default function JobPage(props) {
         ?.replace(/\sstyle="[^"]*"/gi, "")
         ?.replace(/\sclass="[^"]*"/gi, "")
         ?.replace(/<p[^>]*>\s*(<strong[^>]*>)?\s*(&nbsp;|\s|<br\s*\/?>)*\s*(<\/strong>)?\s*<\/p>/gi, "")
-        ?.replace(/<img[^>]*>/gi, "");
+        ?.replace(/<img[^>]*>/gi, "")
+        ?.replace(/<div[^>]*>\s*&nbsp;\s*<\/div>/gi, "");
 
-        
+
     function formatJobType(type) {
             if (!type) {
                 return "no info"

@@ -25,7 +25,7 @@ export default function LogoTitle() {
                 
                
     </h1>
-     <p className="header__subtitle">Find remote frontend jobs worldwide</p>
+     <p className="header__subtitle">Find remote jobs worldwide</p>
     </header>
 
 }

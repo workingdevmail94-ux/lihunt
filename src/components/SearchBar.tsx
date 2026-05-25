@@ -4,7 +4,13 @@ type SearchBarProps = {
   setSearchValue: (value: string) => void
   errorFetch: Error | null
 }
+
 export default function SearchBar(props: SearchBarProps) {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Escape') {
+      props.setSearchValue("")
+    }
+  };
   return (
     <div className="search">
       <Search className="search__icon" />
@@ -14,6 +20,7 @@ export default function SearchBar(props: SearchBarProps) {
         aria-label="Search jobs"
         disabled={Boolean(props.errorFetch)}
         value={props.searchValue}
+        onKeyDown={handleKeyDown}
         onChange={(event) => props.setSearchValue(event.target.value)}
         placeholder="Search by job title or company..."
       />
