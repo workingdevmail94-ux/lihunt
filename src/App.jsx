@@ -5,6 +5,7 @@ import "./styles/main.scss";
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import JobList from './components/JobList.jsx'
+import JobPage from './components/JobPage.jsx';
 import SearchBar from './components/SearchBar.tsx'
 import Filters from './components/Filters.jsx'
 import EmptyState from './components/EmptyState.jsx'
@@ -25,7 +26,9 @@ export default function App() {
       }
     return response.json();
   }).then(data => {
+    console.log(data.jobs[0])
     setJobsList(data.jobs);
+
   })
 
   const delayPromise = new Promise((resolve) => {
@@ -78,6 +81,14 @@ export default function App() {
 
   const [viewListMode, setViewListMode] = useState("grid");
   const [isLoadMore, setIsLoadMore] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null)
+
+
+  const hasPartTime = jobsList.some((job) => job.job_type === "part_time")
+  const hasFullTime = jobsList.some((job) => job.job_type === "full_time")
+  const hasFreelance = jobsList.some((job) => job.job_type === "freelance")
+  const hasContract = jobsList.some((job) => job.job_type === "contract")
+
 
   const filteredJobs = jobsList.filter((job) => {
     const matchesSearch = job.title.toLowerCase().includes(debouncedSearchValue.toLowerCase()) || job.company_name.toLowerCase().includes(debouncedSearchValue.toLowerCase());
@@ -94,9 +105,9 @@ export default function App() {
       return b.title.localeCompare(a.title)
     }
   })
-
+  
   const visibleJobs = sortedJobs.slice(0, visibleCount);
-
+  
   function toggleSaveJobs(id) {
       if (savedJobs.includes(id)) {
          setSavedJobs(savedJobs.filter((item) => item !== id))
@@ -106,47 +117,116 @@ export default function App() {
       }
   }
 
-  return (
-    <>
-      <Header/>
-      <main>
-        <SearchBar errorFetch={errorFetch} searchValue={searchValue} setSearchValue={setSearchValue}/>
+return (
+  <>
+    <Header />
 
-        <Filters 
-        errorFetch={errorFetch}
-        workType={workType} setWorkType={setWorkType}  
-        setSearchValue={setSearchValue} 
-        sortOrder={sortOrder} setSortOrder={setSortOrder}
-        savedJobs={savedJobs}
-        filteredJobs={filteredJobs}
-        showSavedOnly={showSavedOnly} setShowSavedOnly={setShowSavedOnly} 
-        visibleCount={visibleCount} setVisibleCount={setVisibleCount}/>
-        
-        {isLoading ? (
-          <div className="loading">
-            <RotateCcw className='loading__icon spin-animation'/> Loading
-          </div>
-        ) : errorFetch ? (
-          "Loading error"
-        ) : jobsList.length === 0 ? (
-          "No jobs found"
-        ) : sortedJobs.length === 0 ? (
-           <EmptyState text={savedJobs.length === 0 && showSavedOnly ? "No saved jobs" : "Nothing found"}/>
-        ) : (
-          <>
-           
-            <JobsHeader title={showSavedOnly ? "Found saved jobs" : "Found jobs"} count={sortedJobs.length} viewListMode={viewListMode} setViewListMode={setViewListMode}/>
-            <JobList visibleJobs={visibleJobs} savedJobs={savedJobs} setSavedJobs={setSavedJobs} toggleSaveJobs={toggleSaveJobs} searchValue={searchValue} viewListMode={viewListMode} setViewListMode={setViewListMode}/>
-            {sortedJobs.length > visibleCount ?  (
-              <LoadMoreButton visibleCount={visibleCount} setVisibleCount={setVisibleCount} sortedJobs={sortedJobs} isLoadMore={isLoadMore} setIsLoadMore={setIsLoadMore}/>) 
-              : null}
-          </>
-          )
-        }   
-      </main>
-      <Footer />
-    </>
-  )
+    <main>
+      {isLoading ? (
+        <div className="loading">
+          <RotateCcw className="loading__icon spin-animation" /> Loading
+        </div>
+      ) : errorFetch ? (
+        "Loading error"
+      ) : jobsList.length === 0 ? (
+        "No jobs found"
+      ) : selectedJob ? (
+        <JobPage
+          selectedJob={selectedJob}
+          setSelectedJob={setSelectedJob}
+        />
+      ) : sortedJobs.length === 0 ? (
+        <>
+          <SearchBar
+            errorFetch={errorFetch}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+
+          <Filters
+            errorFetch={errorFetch}
+            workType={workType}
+            setWorkType={setWorkType}
+            setSearchValue={setSearchValue}
+            sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
+            savedJobs={savedJobs}
+            filteredJobs={filteredJobs}
+            hasFullTime={hasFullTime}
+            hasPartTime={hasPartTime}
+            hasFreelance={hasFreelance}
+            hasContract={hasContract}
+            showSavedOnly={showSavedOnly}
+            setShowSavedOnly={setShowSavedOnly}
+            visibleCount={visibleCount}
+            setVisibleCount={setVisibleCount}
+          />
+
+          <EmptyState
+            text={savedJobs.length === 0 && showSavedOnly ? "No saved jobs" : "Nothing found"}
+          />
+        </>
+      ) : (
+        <>
+          <SearchBar
+            errorFetch={errorFetch}
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
+
+          <Filters
+            errorFetch={errorFetch}
+            workType={workType}
+            setWorkType={setWorkType}
+            setSearchValue={setSearchValue}
+            sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
+            savedJobs={savedJobs}
+            filteredJobs={filteredJobs}
+            hasFullTime={hasFullTime}
+            hasPartTime={hasPartTime}
+            hasFreelance={hasFreelance}
+            hasContract={hasContract}
+            showSavedOnly={showSavedOnly}
+            setShowSavedOnly={setShowSavedOnly}
+            visibleCount={visibleCount}
+            setVisibleCount={setVisibleCount}
+          />
+
+          <JobsHeader
+            title={showSavedOnly ? "Found saved jobs" : "Found jobs"}
+            count={sortedJobs.length}
+            viewListMode={viewListMode}
+            setViewListMode={setViewListMode}
+          />
+
+          <JobList
+            visibleJobs={visibleJobs}
+            savedJobs={savedJobs}
+            setSavedJobs={setSavedJobs}
+            toggleSaveJobs={toggleSaveJobs}
+            searchValue={searchValue}
+            viewListMode={viewListMode}
+            setViewListMode={setViewListMode}
+            setSelectedJob={setSelectedJob}
+          />
+
+          {sortedJobs.length > visibleCount ? (
+            <LoadMoreButton
+              visibleCount={visibleCount}
+              setVisibleCount={setVisibleCount}
+              sortedJobs={sortedJobs}
+              isLoadMore={isLoadMore}
+              setIsLoadMore={setIsLoadMore}
+            />
+          ) : null}
+        </>
+      )}
+    </main>
+
+    <Footer />
+  </>
+);
 }
 
 

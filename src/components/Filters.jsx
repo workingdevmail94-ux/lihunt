@@ -6,6 +6,7 @@ import {
   Clock3,
   BriefcaseBusiness,
   Laptop,
+  FileSignature,
   RotateCcw,
   ArrowDownUp,
   Bookmark,
@@ -43,7 +44,7 @@ export default function Filters(props) {
   </button>
 
        <button
-   disabled={props.errorFetch} className={"btn filter__btn" + (props.workType === "full_time" ? " active" : "")}
+   disabled={props.errorFetch || !props.hasFullTime} className={"btn filter__btn" + (props.workType === "full_time" ? " active" : "")}
     onClick={() => handleWorkTypeClick("full_time")}
   >
     <BriefcaseBusiness className="filter__icon" />
@@ -51,7 +52,7 @@ export default function Filters(props) {
   </button>
 
   <button
-    disabled={props.errorFetch} className={"btn filter__btn" + (props.workType === "part_time" ? " active" : "")}
+    disabled={props.errorFetch || !props.hasPartTime} className={"btn filter__btn" + (props.workType === "part_time" ? " active" : "")}
     onClick={() => handleWorkTypeClick("part_time")}
   >
     <Clock3 className="filter__icon" />
@@ -61,11 +62,19 @@ export default function Filters(props) {
  
 
   <button
-    disabled={props.errorFetch} className={"btn filter__btn" + (props.workType === "freelance" ? " active" : "")}
+    disabled={props.errorFetch || !props.hasFreelance} className={"btn filter__btn" + (props.workType === "freelance" ? " active" : "")}
     onClick={() => handleWorkTypeClick("freelance")}
   >
     <Laptop className="filter__icon" />
     Freelance
+  </button>
+
+   <button
+    disabled={props.errorFetch || !props.hasContract} className={"btn filter__btn" + (props.workType === "contract" ? " active" : "")}
+    onClick={() => handleWorkTypeClick("contract")}
+  >
+    <FileSignature className="filter__icon" />
+    Contract
   </button>
 
     <ShowSavedOnlyButton

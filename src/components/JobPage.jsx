@@ -4,14 +4,12 @@ import {
   MapPin,
   BriefcaseBusiness,
   DollarSign,
-  CalendarDays
+  CalendarDays,
+  X
 } from "lucide-react";
 
-
-
-export default function JobCard(props) {
-        
-        function formatJobType(type) {
+export default function JobPage(props) {
+    function formatJobType(type) {
             if (!type) {
                 return "no info"
             }
@@ -23,43 +21,28 @@ export default function JobCard(props) {
             }
             return type
         }
-        
-      function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  }
 
-    function highlightText(text, search) {
-      const query = search.trim();
-      if (!query) return text;
-      const safeQuery = escapeRegExp(query);
-      const regex = new RegExp(`(${safeQuery})`, "gi");
-      const parts = text.split(regex);
-
-      return parts.map((part, index) =>
-        part.toLowerCase() === query.toLowerCase() ? (
-          <mark key={index}>{part}</mark>
-        ) : (
-          part
-        )
-      );
-    }
-    function getFormattedDate() {
-        const publicationDate = props.job.publication_date;
+            function getFormattedDate() {
+        const publicationDate = props.selectedJob.publication_date;
             if (!publicationDate) {return "no info"}
             const date = new Date(publicationDate);
             return date.toLocaleDateString("ru-RU");
     }
-    return <li className="job-card">
-                     <button
-                    className={"job-card__action-btn" + (props.isSaved ? " job-card__save-btn--active" : "")}
-                    onClick={() => props.onToggleSave(props.job.id)}
+    return  (    
+     
+       
+        <article className="job-card job-page">
+           <button className="job-card__action-btn" onClick={() => props.setSelectedJob(null)}><X /></button>
+                     {/* <button
+                    className={"job-card__save-btn" + (props.isSaved ? " job-card__save-btn--active" : "")}
+                    onClick={() => props.onToggleSave(props.selectedJob.id)}
                     >
                     {props.isSaved ? <BookmarkCheck className="job-card__icon"/> : <Bookmark className="job-card__icon"/>}
                     
-                    </button>
+                    </button> */}
 
 
-                    <h3 className="job-card__title" >{highlightText(props.job.title || "no title", props.searchValue)}</h3>
+                    <h3 className="job-card__title">{props.selectedJob.title || "no title"}</h3>
 
                     <ul className="job-card__info-list">
   <li className="job-card__info-item">
@@ -69,7 +52,7 @@ export default function JobCard(props) {
 
     <span className="job-card__info-text">
       <span className="job-card__info-label">Job type:</span>
-      <span className="job-card__info-value">{formatJobType(props.job.job_type)}</span>
+      <span className="job-card__info-value">{formatJobType(props.selectedJob.job_type)}</span>
     </span>
   </li>
 
@@ -81,7 +64,7 @@ export default function JobCard(props) {
     <span className="job-card__info-text">
       <span className="job-card__info-label">Location:</span>
       <span className="job-card__info-value">
-        {props.job.candidate_required_location || "no info"}
+        {props.selectedJob.candidate_required_location || "no info"}
       </span>
     </span>
   </li>
@@ -93,7 +76,7 @@ export default function JobCard(props) {
 
     <span className="job-card__info-text">
       <span className="job-card__info-label">Salary:</span>
-      <span className="job-card__info-value">{props.job.salary.length <= 2 ? "no info" : props.job.salary}</span>
+      <span className="job-card__info-value">{props.selectedJob.salary.length <= 2 ? "no info" : props.selectedJob.salary}</span>
     </span>
   </li>
 </ul>
@@ -103,18 +86,19 @@ export default function JobCard(props) {
                     <div className="job-card__company">
                     <img
                         className="job-card__company-logo"
-                        src={props.job.company_logo || "assets/img/default/empty-job.webp"}
-                        alt={props.job.company_name || "Default job image"}
+                        src={props.selectedJob.company_logo || "assets/img/default/empty-selectedJob.webp"}
+                        alt={props.selectedJob.company_name || "Default job image"}
                     />
-                    <h3 className="job-card__company-name">{highlightText(props.job.company_name || "no company", props.searchValue)}</h3>
+                    <h3 className="job-card__company-name">{props.selectedJob.company_name || "no company"}</h3>
                     </div>
 
                     <div className="job-card__date">
                         <CalendarDays className="job-card__icon"/> {getFormattedDate()}
                     </div>
                 </div>
-                <button className="btn btn--revert job-card__view-details-btn" onClick={() => props.setSelectedJob(props.job)}>View details</button>
+           
                 
-                {/* <p>Job tags: {Array.isArray(props.job.tags) && props.job.tags.length > 0 ? props.job.tags.join(", ") : "no info"}</p> */}
-            </li>
+                {/* <p>Job tags: {Array.isArray(props.selectedJob.tags) && props.selectedJob.tags.length > 0 ? props.selectedJob.tags.join(", ") : "no info"}</p> */}
+            </article>
+    )
 }

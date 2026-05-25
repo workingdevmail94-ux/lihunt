@@ -7,7 +7,7 @@ export default function JobsHeader(props) {
     return <>
        <div className="jobs-header">
         <h2 className="jobs-header__title">
-            {props.title}:
+            {props.title}
             <span className="jobs-header__count">{props.count}</span>
         </h2>
 

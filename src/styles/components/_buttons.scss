@@ -8,16 +8,28 @@
   cursor: pointer;
 
   transition: 0.2s ease;
+   &--revert {
+      border-color: var(--clr1);
+    color: #fff;
+    background: var(--clr1);
+    }
   @media (hover: hover) and (pointer: fine) {
     &:hover {
     border-color: var(--clr1);
     color: var(--clr1);
-  }
+    }
+    &--revert:hover {
+      background: #fff;
+    }
   }
 
    &:active {
     border-color: var(--clr1);
     color: var(--clr1);
+  }
+
+  &--revert:active {
+    background: #fff;
   }
 
   &.active {
