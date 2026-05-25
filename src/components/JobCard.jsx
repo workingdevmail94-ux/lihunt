@@ -126,7 +126,5 @@ export default function JobCard(props) {
                     </div>
                 </div>
                 <button className="btn btn--revert job-card__view-details-btn" onClick={handleSelectJob}>View details</button>
-                
-                {/* <p>Job tags: {Array.isArray(props.job.tags) && props.job.tags.length > 0 ? props.job.tags.join(", ") : "no info"}</p> */}
             </li>
 }

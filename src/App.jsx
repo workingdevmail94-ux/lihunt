@@ -122,6 +122,8 @@ export default function App() {
       }
   }
 
+   
+
 return (
   <>
     <Header />
@@ -146,6 +148,10 @@ return (
             errorFetch={errorFetch}
             searchValue={searchValue}
             setSearchValue={setSearchValue}
+            onEscape={() => {
+              setSelectedJob(null);
+              setSearchValue("");
+            }}
           />
 
           <Filters
@@ -177,6 +183,10 @@ return (
             errorFetch={errorFetch}
             searchValue={searchValue}
             setSearchValue={setSearchValue}
+            onEscape={() => {
+              setSelectedJob(null);
+              setSearchValue("");
+            }}
           />
 
           <Filters
