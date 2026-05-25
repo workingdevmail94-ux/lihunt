@@ -6,10 +6,8 @@ import {
   BriefcaseBusiness,
   DollarSign,
   CalendarDays,
-  X
+  X,
 } from "lucide-react";
-
-
 
 export default function JobPage(props) {
   // adding handle Escape for document while JobPage is open
