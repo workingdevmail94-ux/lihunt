@@ -110,7 +110,12 @@ export default function App() {
   
   function toggleSaveJobs(id) {
       if (savedJobs.includes(id)) {
-         setSavedJobs(savedJobs.filter((item) => item !== id))
+          const newSavedJobs = savedJobs.filter((item) => item !== id)
+          if (newSavedJobs.length === 0) {
+            setShowSavedOnly(false)
+          }
+          setSavedJobs(newSavedJobs)
+
       }
       else {
          setSavedJobs([...savedJobs, id])
@@ -163,7 +168,7 @@ return (
           />
 
           <EmptyState
-            text={savedJobs.length === 0? "Nothing found" : "Found jobs"}
+            text={"Nothing found"}
           />
         </>
       ) : (
