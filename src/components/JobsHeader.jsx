@@ -10,7 +10,7 @@ export default function JobsHeader(props) {
         </h2>
 
         <div className="jobs-header__view-switcher">
-          <button
+          <button aria-label="Switch to list view"
             onClick={() => props.setViewListMode("list")}
             className={
               "btn jobs-header__view-btn" +
@@ -20,7 +20,7 @@ export default function JobsHeader(props) {
             <List className="jobs-header__view-icon" />
           </button>
 
-          <button
+          <button aria-label="Switch to grid view"
             onClick={() => props.setViewListMode("grid")}
             className={
               "btn jobs-header__view-btn" +

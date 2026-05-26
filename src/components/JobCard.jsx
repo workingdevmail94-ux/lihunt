@@ -60,10 +60,10 @@ export default function JobCard(props) {
         <h3 className="job-card__title">
           {highlightText(props.job.title || "no title", props.searchValue)}
         </h3>
-        <button
+        <button aria-label="Save job"
           className={
-            "job-card__action-btn" +
-            (props.isSaved ? " job-card__save-btn--active" : "")
+            "btn job-card__action-btn" +
+            (props.isSaved ? " active" : "")
           }
           onClick={() => props.onToggleSave(props.job.id)}
         >

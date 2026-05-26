@@ -79,7 +79,7 @@ export default function JobPage(props) {
         </h3>
         <button
           className="job-card__action-btn"
-          aria-label="close"
+          aria-label="Close job page"
           onClick={() => props.setSelectedJob(null)}
         >
           <X />

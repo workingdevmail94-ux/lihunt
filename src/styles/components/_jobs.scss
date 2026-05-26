@@ -325,7 +325,7 @@
 
     font-size: 1.4rem;
     font-weight: 500;
-    color: #9ca3af;
+    color: #6b7280;
   }
 
   &__view-details-btn {
@@ -361,30 +361,6 @@
     @media (max-width: 768px) {
       grid-auto-flow: unset;
     }
-  }
-
-  .job-card__bottom {
-    // переопределяешь bottom только внутри job-page
-  }
-
-  .job-card__company-logo {
-    // переопределяешь logo только внутри job-page
-  }
-
-  .job-card__view-details-btn {
-    // например можно скрыть кнопку details на странице
-  }
-
-  &__description {
-    // новые элементы страницы вакансии
-  }
-
-  &__back-btn {
-    // кнопка назад
-  }
-
-  &__apply-btn {
-    // кнопка apply
   }
 }
 
