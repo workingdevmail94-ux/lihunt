@@ -11,7 +11,7 @@
   width: 22px;
   height: 22px;
   transform: translateY(-50%);
-  color: #64748b;
+  color: var(--color-text-icon);
   pointer-events: none;
 }
 
@@ -20,24 +20,24 @@
   height: 4rem;
   padding: 0 2rem 0 5rem;
 
-  border: 1px solid #d7dce7;
+  border: 1px solid var(--color-input-border);
   border-radius: 18px;
-  background: #ffffff;
+  background: var(--color-surface);
 
   font-family: inherit;
-  color: #111827;
+  color: var(--color-text);
   outline: none;
 
   transition: 0.2s ease;
 }
 
 .search__input::placeholder {
-  color: #94a3b8;
+  color: var(--color-placeholder);
 }
 
 .search__input:focus {
   border-color: var(--clr1);
-  box-shadow: 0 0 0 4px rgba(108, 77, 255, 0.12);
+  box-shadow: 0 0 0 4px var(--color-focus-ring);
 }
 
 .search__input:disabled {

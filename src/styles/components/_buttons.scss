@@ -1,16 +1,16 @@
 .btn {
     padding: 0.6rem 1.2rem;
-  border: 1px solid #d9dce5;
+  border: 1px solid var(--color-border);
   border-radius: 2rem;
-  background: #ffffff;
-  color: #374151;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
   font-weight: 500;
   cursor: pointer;
 
   transition: 0.2s ease;
    &--revert {
       border-color: var(--clr1);
-    color: #fff;
+    color: var(--color-surface);
     background: var(--clr1);
     }
   @media (hover: hover) and (pointer: fine) {
@@ -19,7 +19,7 @@
     color: var(--clr1);
     }
     &--revert:hover {
-      background: #fff;
+      background: var(--color-surface);
     }
   }
 
@@ -29,13 +29,13 @@
   }
 
   &--revert:active {
-    background: #fff;
+    background: var(--color-surface);
   }
 
   &.active {
     background: var(--clr1);
     border-color: var(--clr1);
-    color: #ffffff;
+    color: var(--color-surface);
   }
 
   &:disabled {

@@ -11,6 +11,7 @@ import Filters from "./components/Filters.jsx";
 import EmptyState from "./components/EmptyState.jsx";
 import JobsHeader from "./components/JobsHeader.jsx";
 import LoadMoreButton from "./components/LoadMoreButton.jsx";
+import ThemeSwitcher from "./components/ThemeSwitcher.jsx";
 
 export default function App() {
   const [jobsList, setJobsList] = useState([]);
@@ -67,6 +68,7 @@ export default function App() {
     if (saved) {
       setSavedJobs(JSON.parse(saved));
     }
+
     setIsLoaded(true);
   }, []);
   useEffect(() => {
@@ -84,6 +86,22 @@ export default function App() {
   const [viewListMode, setViewListMode] = useState("grid");
   const [isLoadMore, setIsLoadMore] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
+
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      return savedTheme;
+    }
+
+    return "light";
+  });
+
+  useEffect(() => {
+    const html = document.documentElement;
+    html.classList.remove("light", "dark");
+    html.classList.add(theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const hasPartTime = jobsList.some((job) => job.job_type === "part_time");
   const hasFullTime = jobsList.some((job) => job.job_type === "full_time");
@@ -126,8 +144,8 @@ export default function App() {
 
   return (
     <>
+      <ThemeSwitcher theme={theme} setTheme={setTheme} />
       <Header />
-
       <main>
         {isLoading ? (
           <div className="loading loading--main">

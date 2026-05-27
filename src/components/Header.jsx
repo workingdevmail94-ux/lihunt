@@ -10,28 +10,28 @@ export default function LogoTitle() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="32" cy="30" r="22" stroke="#6C4DFF" strokeWidth="6" />
+          <circle cx="32" cy="30" r="22" stroke="var(--color-accent)" strokeWidth="6" />
           <line
             x1="47"
             y1="45"
             x2="58"
             y2="56"
-            stroke="#6C4DFF"
+            stroke="var(--color-accent)"
             strokeWidth="6"
             strokeLinecap="round"
           />
 
           <path
             d="M22 17V41H39"
-            stroke="#111827"
+            stroke="var(--color-text)"
             strokeWidth="7"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          <circle cx="42" cy="20" r="4" fill="#6C4DFF" />
+          <circle cx="42" cy="20" r="4" fill="var(--color-accent)" />
           <path
             d="M42 30V41"
-            stroke="#111827"
+            stroke="var(--color-text)"
             strokeWidth="7"
             strokeLinecap="round"
           />
@@ -43,8 +43,8 @@ export default function LogoTitle() {
             fontSize="34"
             fontWeight="700"
           >
-            <tspan fill="#6C4DFF">Li</tspan>
-            <tspan fill="#111827">Hunt</tspan>
+            <tspan fill="var(--color-accent)">Li</tspan>
+            <tspan fill="var(--color-text)">Hunt</tspan>
           </text>
         </svg>
       </h1>

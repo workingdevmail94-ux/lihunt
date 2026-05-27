@@ -9,14 +9,14 @@ html {
 body {
   font-family: "Manrope", Arial, sans-serif;
   font-size: 1.6rem;
-  color: #111827;
+  color: var(--color-text);
    background:
-    radial-gradient(circle at top center, rgba(126, 87, 255, 0.12), transparent 35%),
+    radial-gradient(circle at top center, var(--color-bg-radial), transparent 35%),
     linear-gradient(
       180deg,
-      #f7f5ff 0%,
-      #f5f6fb 35%,
-      #f3f5fb 100%
+      var(--color-bg-start) 0%,
+      var(--color-bg-middle) 35%,
+      var(--color-bg) 100%
     );
 }
 
@@ -64,13 +64,13 @@ h2 {
     font-size: 48px;
     line-height: 1.1;
     font-weight: 700;
-    color: #111827;
+    color: var(--color-text);
   }
 
   &__subtitle {
     margin: 0;
     font-size: 18px;
-    color: #6b7280;
+    color: var(--color-text-soft);
   }
 }
 
@@ -120,7 +120,7 @@ h2 {
 }
 
 mark {
-  background: #fff3a3;
+  background: var(--color-mark-bg);
   color: inherit;
 }
 
