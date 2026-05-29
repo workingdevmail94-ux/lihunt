@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw,CircleX } from "lucide-react";
 import "./App.scss";
 import "./styles/main.scss";
 import Header from "./components/Header.jsx";
@@ -58,6 +58,7 @@ export default function App() {
   }, [searchValue]);
   const [workType, setWorkType] = useState("all");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [sortType, setSortType] = useState("title");
   const [savedJobs, setSavedJobs] = useState([]);
   const [showSavedOnly, setShowSavedOnly] = useState(false);
 
@@ -92,7 +93,6 @@ export default function App() {
     if (savedTheme) {
       return savedTheme;
     }
-
     return "light";
   });
 
@@ -121,11 +121,24 @@ export default function App() {
   });
 
   const sortedJobs = [...filteredJobs].sort((a, b) => {
-    if (sortOrder === "asc") {
-      return a.title.localeCompare(b.title);
-    } else {
-      return b.title.localeCompare(a.title);
+    if (sortType === "title") {
+      if (sortOrder === "asc") {
+        return a.title.localeCompare(b.title);
+        } else {
+        return b.title.localeCompare(a.title);
+      }
     }
+    if (sortType === "date") {
+      const dateA = new Date(a.publication_date).getTime();
+      const dateB = new Date(b.publication_date).getTime()
+      if (sortOrder === "asc") {
+        return dateA - dateB
+      }
+      else if (sortOrder === "desc") {
+        return dateB - dateA
+      }
+    }
+    return 0
   });
 
   const visibleJobs = sortedJobs.slice(0, visibleCount);
@@ -144,15 +157,16 @@ export default function App() {
 
   return (
     <>
-      <ThemeSwitcher theme={theme} setTheme={setTheme} />
       <Header />
-      <main>
+      <main className="main">
         {isLoading ? (
           <div className="loading loading--main">
             <RotateCcw className="loading__icon spin-animation" /> Loading
           </div>
         ) : errorFetch ? (
-          "Loading error"
+          <div className="loading loading--main">
+            <CircleX /> Loading error
+          </div>
         ) : jobsList.length === 0 ? (
           "No jobs found"
         ) : selectedJob ? (
@@ -176,6 +190,8 @@ export default function App() {
               setSearchValue={setSearchValue}
               sortOrder={sortOrder}
               setSortOrder={setSortOrder}
+              sortType={sortType}
+              setSortType={setSortType}
               savedJobs={savedJobs}
               filteredJobs={filteredJobs}
               hasFullTime={hasFullTime}
@@ -209,6 +225,8 @@ export default function App() {
               setSearchValue={setSearchValue}
               sortOrder={sortOrder}
               setSortOrder={setSortOrder}
+              sortType={sortType}
+              setSortType={setSortType}
               savedJobs={savedJobs}
               filteredJobs={filteredJobs}
               hasFullTime={hasFullTime}
@@ -252,8 +270,8 @@ export default function App() {
           </>
         )}
       </main>
-
       <Footer />
+      <ThemeSwitcher theme={theme} setTheme={setTheme} />
     </>
   );
 }

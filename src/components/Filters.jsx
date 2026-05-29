@@ -1,5 +1,6 @@
 import ResetButton from "./ResetButton";
-import SortButton from "./SortButton";
+import SortButtonByTitle from "./SortButtonByTitle";
+import SortButtonByDate from "./SortButtonByDate";
 import ShowSavedOnlyButton from "./ShowSavedOnlyButton";
 import {
   Grid2X2,
@@ -11,6 +12,7 @@ import {
   ArrowDownUp,
   Bookmark,
 } from "lucide-react";
+
 export default function Filters(props) {
   function handleWorkTypeClick(type) {
     props.setWorkType(type);
@@ -23,8 +25,23 @@ export default function Filters(props) {
     props.setShowSavedOnly(false);
     props.setVisibleCount(6);
   }
-  function handleSort() {
-    props.setSortOrder(props.sortOrder === "asc" ? "desc" : "asc");
+  function handleTitleSort() {
+    if (props.sortType === "title") {
+      props.setSortOrder(props.sortOrder === "asc" ? "desc" : "asc");
+    }
+    else {
+      props.setSortType("title")
+      props.setSortOrder("asc")
+    }
+  }
+  function handleDateSort() {
+    if (props.sortType === "date") {
+       props.setSortOrder(props.sortOrder === "asc" ? "desc" : "asc");
+    }
+    else {
+      props.setSortType("date")
+      props.setSortOrder("asc")
+    }
   }
   function showSavedOnly() {
     props.setShowSavedOnly(!props.showSavedOnly);
@@ -33,7 +50,7 @@ export default function Filters(props) {
   }
   return (
     <>
-      {" "}
+      
       <div className="filter">
         <button
           disabled={props.errorFetch}
@@ -102,10 +119,19 @@ export default function Filters(props) {
           icon={<Bookmark className="filter__icon" />}
         />
         {/* <div className="filter__additional-buttons"> */}
-        <SortButton
+       
+        <SortButtonByTitle
           errorFetch={props.errorFetch}
-          onSort={handleSort}
+          onSort={handleTitleSort}
           sortOrder={props.sortOrder}
+          filteredJobs={props.filteredJobs}
+          icon={<ArrowDownUp className="filter__icon" />}
+        />
+         <SortButtonByDate
+          errorFetch={props.errorFetch}
+          onSort={handleDateSort}
+          sortOrder={props.sortOrder}
+          sortType={props.sortType}
           filteredJobs={props.filteredJobs}
           icon={<ArrowDownUp className="filter__icon" />}
         />
