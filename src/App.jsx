@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { RotateCcw,CircleX } from "lucide-react";
+import { RotateCcw, CircleX } from "lucide-react";
 import "./App.scss";
 import "./styles/main.scss";
 import Header from "./components/Header.jsx";
@@ -50,12 +50,11 @@ export default function App() {
   const [searchValue, setSearchValue] = useState("");
   const [debouncedSearchValue, setDebouncedSearchValue] = useState("");
   useEffect(() => {
-    setVisibleCount(6)
+    setVisibleCount(6);
     const timer = setTimeout(() => {
       setDebouncedSearchValue(searchValue);
     }, 300);
     return () => clearTimeout(timer);
-
   }, [searchValue]);
   const [workType, setWorkType] = useState("all");
   const [sortOrder, setSortOrder] = useState("asc");
@@ -70,14 +69,11 @@ export default function App() {
       if (saved) {
         setSavedJobs(JSON.parse(saved));
       }
-    }
-    catch {
-      setSavedJobs([])
-    }
-    finally {
+    } catch {
+      setSavedJobs([]);
+    } finally {
       setIsLoaded(true);
     }
-    
   }, []);
   useEffect(() => {
     if (isLoaded) {
@@ -131,21 +127,20 @@ export default function App() {
     if (sortType === "title") {
       if (sortOrder === "asc") {
         return a.title.localeCompare(b.title);
-        } else {
+      } else {
         return b.title.localeCompare(a.title);
       }
     }
     if (sortType === "date") {
       const dateA = new Date(a.publication_date).getTime();
-      const dateB = new Date(b.publication_date).getTime()
+      const dateB = new Date(b.publication_date).getTime();
       if (sortOrder === "asc") {
-        return dateA - dateB
-      }
-      else if (sortOrder === "desc") {
-        return dateB - dateA
+        return dateA - dateB;
+      } else if (sortOrder === "desc") {
+        return dateB - dateA;
       }
     }
-    return 0
+    return 0;
   });
 
   const visibleJobs = sortedJobs.slice(0, visibleCount);
@@ -162,7 +157,40 @@ export default function App() {
     }
   }
 
+  const jobControls = (
+    <>
+      <SearchBar
+        errorFetch={errorFetch}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        onEscape={() => {
+          setSelectedJob(null);
+          setSearchValue("");
+        }}
+      />
 
+      <Filters
+        errorFetch={errorFetch}
+        workType={workType}
+        setWorkType={setWorkType}
+        setSearchValue={setSearchValue}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
+        sortType={sortType}
+        setSortType={setSortType}
+        savedJobs={savedJobs}
+        filteredJobs={filteredJobs}
+        hasFullTime={hasFullTime}
+        hasPartTime={hasPartTime}
+        hasFreelance={hasFreelance}
+        hasContract={hasContract}
+        showSavedOnly={showSavedOnly}
+        setShowSavedOnly={setShowSavedOnly}
+        visibleCount={visibleCount}
+        setVisibleCount={setVisibleCount}
+      />
+    </>
+  );
 
   return (
     <>
@@ -182,72 +210,13 @@ export default function App() {
           <JobPage selectedJob={selectedJob} setSelectedJob={setSelectedJob} />
         ) : sortedJobs.length === 0 ? (
           <>
-            <SearchBar
-              errorFetch={errorFetch}
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
-              onEscape={() => {
-                setSelectedJob(null);
-                setSearchValue("");
-              }}
-            />
-
-            <Filters
-              errorFetch={errorFetch}
-              workType={workType}
-              setWorkType={setWorkType}
-              setSearchValue={setSearchValue}
-              sortOrder={sortOrder}
-              setSortOrder={setSortOrder}
-              sortType={sortType}
-              setSortType={setSortType}
-              savedJobs={savedJobs}
-              filteredJobs={filteredJobs}
-              hasFullTime={hasFullTime}
-              hasPartTime={hasPartTime}
-              hasFreelance={hasFreelance}
-              hasContract={hasContract}
-              showSavedOnly={showSavedOnly}
-              setShowSavedOnly={setShowSavedOnly}
-              visibleCount={visibleCount}
-              setVisibleCount={setVisibleCount}
-            />
-
+            {jobControls}
             <EmptyState text={"Nothing found"} />
           </>
         ) : (
           <>
-            <SearchBar
-              errorFetch={errorFetch}
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
-              onEscape={() => {
-                setSelectedJob(null);
-                setSearchValue("");
-              }}
-            />
-
-            <Filters
-              errorFetch={errorFetch}
-              workType={workType}
-              setWorkType={setWorkType}
-              setSearchValue={setSearchValue}
-              sortOrder={sortOrder}
-              setSortOrder={setSortOrder}
-              sortType={sortType}
-              setSortType={setSortType}
-              savedJobs={savedJobs}
-              filteredJobs={filteredJobs}
-              hasFullTime={hasFullTime}
-              hasPartTime={hasPartTime}
-              hasFreelance={hasFreelance}
-              hasContract={hasContract}
-              showSavedOnly={showSavedOnly}
-              setShowSavedOnly={setShowSavedOnly}
-              visibleCount={visibleCount}
-              setVisibleCount={setVisibleCount}
-            />
-
+            
+            {jobControls}
             <JobsHeader
               title={showSavedOnly ? "Found saved jobs" : "Found jobs"}
               count={sortedJobs.length}
