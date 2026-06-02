@@ -29,7 +29,6 @@ export default function App() {
         return response.json();
       })
       .then((data) => {
-        console.log(data.jobs[0]);
         setJobsList(data.jobs);
       });
 
@@ -64,13 +63,19 @@ export default function App() {
 
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    const saved = localStorage.getItem("savedJobs");
-
-    if (saved) {
-      setSavedJobs(JSON.parse(saved));
+    try {
+      const saved = localStorage.getItem("savedJobs");
+      if (saved) {
+        setSavedJobs(JSON.parse(saved));
+      }
     }
-
-    setIsLoaded(true);
+    catch {
+      setSavedJobs([])
+    }
+    finally {
+      setIsLoaded(true);
+    }
+    
   }, []);
   useEffect(() => {
     if (isLoaded) {
@@ -154,6 +159,8 @@ export default function App() {
       setSavedJobs([...savedJobs, id]);
     }
   }
+
+
 
   return (
     <>
