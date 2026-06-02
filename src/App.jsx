@@ -81,7 +81,7 @@ export default function App() {
     if (isLoaded) {
       localStorage.setItem("savedJobs", JSON.stringify(savedJobs));
     }
-  }, [savedJobs]);
+  }, [savedJobs, isLoaded]);
 
   useEffect(() => {
     if (savedJobs.length === 0 && showSavedOnly) {
