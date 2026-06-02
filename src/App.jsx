@@ -50,10 +50,12 @@ export default function App() {
   const [searchValue, setSearchValue] = useState("");
   const [debouncedSearchValue, setDebouncedSearchValue] = useState("");
   useEffect(() => {
+    setVisibleCount(6)
     const timer = setTimeout(() => {
       setDebouncedSearchValue(searchValue);
     }, 300);
     return () => clearTimeout(timer);
+
   }, [searchValue]);
   const [workType, setWorkType] = useState("all");
   const [sortOrder, setSortOrder] = useState("asc");
