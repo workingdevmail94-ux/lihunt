@@ -40,7 +40,7 @@ export default function Filters(props) {
     }
     else {
       props.setSortType("date")
-      props.setSortOrder("asc")
+      props.setSortOrder("desc")
     }
   }
   function showSavedOnly() {
