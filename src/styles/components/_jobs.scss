@@ -135,6 +135,13 @@
     color: var(--color-text-heading);
   }
 
+  &__link {
+    color: var(--color-placeholder);
+    &:hover {
+      color: var(--clr1);
+    }
+  }
+
   &__info-list {
     display: grid;
     gap: 1rem;
@@ -299,7 +306,7 @@
     object-fit: contain;
     background: var(--color-surface-muted);
     border: 1px solid var(--color-border-muted);
-    border-radius: 1.5rem;
+    border-radius: 50%;
   }
 
   &__company-name {
@@ -347,8 +354,10 @@
 
   .job-card__title {
     text-align: center;
-
+    align-items: center;
     grid-column: 2;
+    display: flex;
+    gap: 1rem;
   }
 
   .job-card__action-btn {

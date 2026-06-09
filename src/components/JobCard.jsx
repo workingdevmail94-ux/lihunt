@@ -60,7 +60,7 @@ export default function JobCard(props) {
         <h3 className="job-card__title">
           {highlightText(props.job.title || "no title", props.searchValue)}
         </h3>
-        <button aria-label="Save job"
+        <button aria-label={props.isSaved ? "Remove job from saved" : "Save job"}
           className={
             "btn job-card__action-btn" +
             (props.isSaved ? " active" : "")
@@ -110,7 +110,7 @@ export default function JobCard(props) {
           <span className="job-card__info-text">
             <span className="job-card__info-label">Salary:</span>
             <span className="job-card__info-value">
-              {props.job.salary.length <= 2 ? "no info" : props.job.salary}
+              {!props.job.salary || props.job.salary.length <= 2 ? "no info" : props.job.salary}
             </span>
           </span>
         </li>

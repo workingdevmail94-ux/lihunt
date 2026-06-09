@@ -7,6 +7,7 @@ import {
   DollarSign,
   CalendarDays,
   X,
+  Link,
 } from "lucide-react";
 
 export default function JobPage(props) {
@@ -76,6 +77,7 @@ export default function JobPage(props) {
       <div className="job-card__top">
         <h3 className="job-card__title">
           {props.selectedJob.title || "no title"}
+          <a target="_blank" className="job-card__link" title={props.selectedJob.url} href={props.selectedJob.url}><Link /></a>
         </h3>
         <button
           className="job-card__action-btn"

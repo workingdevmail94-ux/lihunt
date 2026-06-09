@@ -30,6 +30,7 @@ export default function App() {
       })
       .then((data) => {
         setJobsList(data.jobs);
+        console.log(data.jobs[0])
       });
 
     const delayPromise = new Promise((resolve) => {
@@ -56,6 +57,8 @@ export default function App() {
     }, 300);
     return () => clearTimeout(timer);
   }, [searchValue]);
+
+
   const [workType, setWorkType] = useState("all");
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortType, setSortType] = useState("title");
